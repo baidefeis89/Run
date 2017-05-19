@@ -11,7 +11,8 @@ namespace Run
     {
         private IntPtr[] correr = new IntPtr[10];
         private int contador = 0;
-        bool saltar;
+        bool saltar,subiendo,bajando;
+
 
         public Personaje()
         {
@@ -22,6 +23,7 @@ namespace Run
             y = 400;
 
             saltar = false;
+            subiendo = false;
             
             for(int i = 1; i < 11; i++)
             {
@@ -46,14 +48,24 @@ namespace Run
 
             if (saltar)
             {
-                if (y == 400)
+                if (y == 400 || subiendo)
                 {
-                    y -= 20;
+                    y -= 12;
+                    if (y < 340)
+                    {
+                        subiendo = false;
+                        bajando = true;
+                    }
                 }
-                else if(y<400)
+                if(y<340 || (y<400 && bajando))
                 {
-                    y += 2;
-                    if (y == 400) saltar = false;
+                    subiendo = false;
+                    y += 6;
+                    if (y == 400)
+                    {
+                        saltar = false;
+                        bajando = false;
+                    }
                 }
 
             }
@@ -63,7 +75,11 @@ namespace Run
 
         public void Saltar()
         {
-            saltar = true;
+            if (!bajando && !subiendo)
+            {
+                saltar = true;
+                subiendo = true;
+            }
             
         }
 

@@ -63,6 +63,9 @@
     <Content Include="img\BG.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="img\Bloque4.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="img\mapa.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

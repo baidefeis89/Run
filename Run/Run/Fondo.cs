@@ -19,7 +19,7 @@ namespace Run
             y = 0;
         }
 
-        //TODO Animar el fondo y unir el principio con el final de la imagen
+        
 
         
     }

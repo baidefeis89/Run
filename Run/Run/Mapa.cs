@@ -45,7 +45,7 @@ namespace Run
 
             //TODO Comprobar sincronización del suelo
             //Control bloques para situarlos al final de la pantalla una vez desaparecen de la vista
-            if (contador == 17)
+            if (contador == 16)
             {
                 numRand = random.Next(20);
 
@@ -57,23 +57,33 @@ namespace Run
                     pos += 128;
                     bloques[primerBloque].Desplazar(pos);
 
-                    if (agujero) bloques[19].SetBloque(Bloque.parteBloque.FINAL);
+                    if (agujero)
+                    {
+                        bloques[19].SetBloque(Bloque.parteBloque.FINAL);
+                        bloques[0].SetBloque(Bloque.parteBloque.VACIO);
+                    }
+
                 }
                 else if (primerBloque > 0)
                 {
-                    pos=bloques[primerBloque - 1].GetX();
+                    pos = bloques[primerBloque - 1].GetX();
                     pos += 128;
                     bloques[primerBloque].Desplazar(pos);
 
-                    if (agujero) bloques[primerBloque - 1].SetBloque(Bloque.parteBloque.FINAL);
+                    if (agujero)
+                    {
+                        bloques[primerBloque - 1].SetBloque(Bloque.parteBloque.FINAL);
+                        bloques[primerBloque].SetBloque(Bloque.parteBloque.VACIO);
+                    }
+
                 }
+
+                if (primerBloque == 19) primerBloque = 0;
+                else primerBloque++;
 
                 if (agujero)
                 {
                     bloques[primerBloque].SetBloque(Bloque.parteBloque.INICIO);
-                    pos = bloques[primerBloque].GetX();
-                    pos += 64;
-                    bloques[primerBloque].Desplazar(pos);
                     agujero = false;
                 }
                 else
@@ -81,11 +91,9 @@ namespace Run
                     bloques[primerBloque].SetBloque(Bloque.parteBloque.MITAD);
                 }
 
-                if (primerBloque == 19) primerBloque = 0;
-                else primerBloque++;
                 contador = 0;
             }
-            contador++;
+            else contador++;
         }
 
         public void DibujarMapa()
