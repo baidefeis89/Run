@@ -26,8 +26,8 @@ namespace Run
                 if (h.TeclaPulsada(Hardware.TECLA_ESC)) terminado = true;
 
                 zombie.Animar();
-                mapa.MoverBloques();
-                //fondo.MoverA(xmapa,0);
+                mapa.MoverMapa();
+                
 
                 h.BorrarPantalla();
                 Hardware.DibujarImagen(fondo);
