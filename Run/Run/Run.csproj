@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bloque.cs" />
+    <Compile Include="Bonus.cs" />
     <Compile Include="Fondo.cs" />
     <Compile Include="Hardware.cs" />
     <Compile Include="Mapa.cs" />
@@ -76,6 +77,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="img\Bloque3.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\object1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="img\Walk-1.png">

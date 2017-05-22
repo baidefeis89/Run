@@ -10,10 +10,13 @@ namespace Run
     class Mapa:Sprite
     {
         Bloque[] bloques = new Bloque[20];
+        Bonus bonus = new Bonus();
         private int contador = 0;
-        private short primerBloque = 0;
+        private short ultimoBloque=18;
         private Random random = new Random();
         private bool agujero = false;
+        private short velocidad = 8;
+        private short contadorVelocidad = 0;
 
 
 
@@ -29,71 +32,143 @@ namespace Run
             }
         }
 
+        public void MoverMapa()
+        { 
+            MoverBloques();
+            MoverRecompensas();
+            ControlVelocidad();
+            
+            //ControlRecompensas();//TODO
+        }
+
+        public void FormatBloques()
+        {
+            
+            if (!bloques[ultimoBloque].GetSuelo())
+            {
+                switch (ultimoBloque)
+                {
+                    case 0:
+                        bloques[19].SetBloque(Bloque.parteBloque.FINAL);
+                        bloques[1].SetBloque(Bloque.parteBloque.INICIO);
+                        break;
+                    case 19:
+                        bloques[18].SetBloque(Bloque.parteBloque.FINAL);
+                        bloques[0].SetBloque(Bloque.parteBloque.INICIO);
+                        break;
+                    default:
+                        bloques[ultimoBloque - 1].SetBloque(Bloque.parteBloque.FINAL);
+                        bloques[ultimoBloque + 1].SetBloque(Bloque.parteBloque.INICIO);
+                        break;
+                }
+            }
+            else
+            {
+                switch (ultimoBloque)
+                {
+                    case 0:
+                        bloques[1].SetBloque(Bloque.parteBloque.MITAD);
+                        break;
+                    case 19:
+                        bloques[0].SetBloque(Bloque.parteBloque.MITAD);
+                        break;
+                    default:
+                        bloques[ultimoBloque + 1].SetBloque(Bloque.parteBloque.MITAD);
+                        break;
+                }
+            }
+        }
+
+        public void ControlAgujeros()
+        {
+            short numRand;
+
+            numRand = Convert.ToInt16(random.Next(3));
+
+            if (numRand == 2 && bloques[ultimoBloque].GetEstado() == Bloque.parteBloque.MITAD)
+            {
+                if ( ultimoBloque > 0 && ultimoBloque < 19 && bloques[ultimoBloque -1].GetEstado() != Bloque.parteBloque.INICIO)
+                {
+                    bloques[ultimoBloque].SetBloque(Bloque.parteBloque.VACIO);
+                }
+                else if (ultimoBloque == 0 && bloques[19].GetEstado() != Bloque.parteBloque.INICIO)
+                {
+                    bloques[ultimoBloque].SetBloque(Bloque.parteBloque.VACIO);
+                }
+                else if(ultimoBloque == 19 && bloques[ultimoBloque -1].GetEstado() != Bloque.parteBloque.INICIO)
+                {
+                    bloques[ultimoBloque].SetBloque(Bloque.parteBloque.VACIO);
+                }
+            }
+            
+        }
+
+        /**
+         * Mueve los bloques a la izquierda y los vuelve a poner al final
+         * cuando desaparecen de la pantalla
+         * 
+         */
         public void MoverBloques()
         {
             short pos=0;
-            int numRand;
-            
 
-            //Movimiento de los bloques a la izquierda
-            for (int i=0;i<bloques.Length;i++)
+            //Movimiento de los bloques a la izquierda y marcado del ultimo de ellos
+            for (short i=0;i<bloques.Length;i++)
             {
                 pos = bloques[i].GetX();
-                pos -= 8;
+                pos -= velocidad;
                 bloques[i].Desplazar(pos);
+                if (bloques[i].GetX() < -250)
+                {
+                    if (i == 0)
+                    {
+                        pos = bloques[19].GetX();
+                        pos += Convert.ToInt16(128-velocidad);
+                        bloques[i].Desplazar(pos);
+                    }
+                    else
+                    {
+                        pos = bloques[i - 1].GetX();
+                        pos += 128;
+                        bloques[i].Desplazar(pos);                   
+                    }
+
+                    ultimoBloque = i;
+                    
+                    ControlAgujeros();
+                    FormatBloques();
+
+
+                }
             }
 
-            //TODO Comprobar sincronización del suelo
-            //Control bloques para situarlos al final de la pantalla una vez desaparecen de la vista
-            if (contador == 16)
+        }
+
+        /**
+         * Movimiento de las recompensas
+         * 
+         */
+        public void MoverRecompensas()
+        {
+            //TODO adaptarlo para un Array de recompensas
+            short pos;
+            pos = bonus.GetX();
+            pos -= Convert.ToInt16(velocidad - (velocidad / 2));
+            bonus.Desplazar(pos);
+        }
+
+        /**
+         * Aumento progresivo de la velocidad 
+         * 
+         */
+        public void ControlVelocidad()
+        {
+            if (contadorVelocidad == 200)
             {
-                numRand = random.Next(20);
-
-                if (numRand == 0) agujero = true;
-
-                if (primerBloque == 0)
-                {
-                    pos = bloques[19].GetX();
-                    pos += 128;
-                    bloques[primerBloque].Desplazar(pos);
-
-                    if (agujero)
-                    {
-                        bloques[19].SetBloque(Bloque.parteBloque.FINAL);
-                        bloques[0].SetBloque(Bloque.parteBloque.VACIO);
-                    }
-
-                }
-                else if (primerBloque > 0)
-                {
-                    pos = bloques[primerBloque - 1].GetX();
-                    pos += 128;
-                    bloques[primerBloque].Desplazar(pos);
-
-                    if (agujero)
-                    {
-                        bloques[primerBloque - 1].SetBloque(Bloque.parteBloque.FINAL);
-                        bloques[primerBloque].SetBloque(Bloque.parteBloque.VACIO);
-                    }
-
-                }
-
-                if (primerBloque == 19) primerBloque = 0;
-                else primerBloque++;
-
-                if (agujero)
-                {
-                    bloques[primerBloque].SetBloque(Bloque.parteBloque.INICIO);
-                    agujero = false;
-                }
-                else
-                {
-                    bloques[primerBloque].SetBloque(Bloque.parteBloque.MITAD);
-                }
-
-                contador = 0;
+                velocidad++;
+                contadorVelocidad = 0;
             }
-            else contador++;
+            else contadorVelocidad++;
         }
 
         public void DibujarMapa()
@@ -102,6 +177,7 @@ namespace Run
             {
                 Hardware.DibujarImagen(x);
             }
+            Hardware.DibujarImagen(bonus);
         }
     }
 }
