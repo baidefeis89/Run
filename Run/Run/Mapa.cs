@@ -10,12 +10,14 @@ namespace Run
     class Mapa:Sprite
     {
         Bloque[] bloques = new Bloque[20];
-        Bonus bonus = new Bonus();
+        //Bonus bonus = new Bonus();
         private int contador = 0;
         private short ultimoBloque=18;
         private Random random = new Random();
         private bool agujero = false;
-        private short velocidad = 8;
+        private short velocidad = 18;
+        //frecuenciaAgujeros menor número == mayor frecuencia
+        private short frecuenciaAgujeros = 16;
         private short contadorVelocidad = 0;
 
 
@@ -35,12 +37,16 @@ namespace Run
         public void MoverMapa()
         { 
             MoverBloques();
-            MoverRecompensas();
+            //MoverRecompensas();
             ControlVelocidad();
             
             //ControlRecompensas();//TODO
         }
 
+        /**
+         * Da el formato correspondiente a cada uno de los bloques
+         * en funcion de la posición de los agujeros
+         * */
         public void FormatBloques()
         {
             
@@ -79,13 +85,17 @@ namespace Run
             }
         }
 
+        /**
+         * Crea agujeros aleatoriamente evitando que se creen
+         * dos consecutivos o con menos de 2 bloques de tierra entre medias
+         * */
         public void ControlAgujeros()
         {
             short numRand;
 
-            numRand = Convert.ToInt16(random.Next(3));
+            numRand = Convert.ToInt16(random.Next(frecuenciaAgujeros));
 
-            if (numRand == 2 && bloques[ultimoBloque].GetEstado() == Bloque.parteBloque.MITAD)
+            if (numRand == 0 && bloques[ultimoBloque].GetEstado() == Bloque.parteBloque.MITAD)
             {
                 if ( ultimoBloque > 0 && ultimoBloque < 19 && bloques[ultimoBloque -1].GetEstado() != Bloque.parteBloque.INICIO)
                 {
@@ -135,6 +145,7 @@ namespace Run
 
                     ultimoBloque = i;
                     
+                    //Cada vez que se mueve un bloque al final
                     ControlAgujeros();
                     FormatBloques();
 
@@ -142,19 +153,6 @@ namespace Run
                 }
             }
 
-        }
-
-        /**
-         * Movimiento de las recompensas
-         * 
-         */
-        public void MoverRecompensas()
-        {
-            //TODO adaptarlo para un Array de recompensas
-            short pos;
-            pos = bonus.GetX();
-            pos -= Convert.ToInt16(velocidad - (velocidad / 2));
-            bonus.Desplazar(pos);
         }
 
         /**
@@ -177,7 +175,12 @@ namespace Run
             {
                 Hardware.DibujarImagen(x);
             }
-            Hardware.DibujarImagen(bonus);
+            //Hardware.DibujarImagen(bonus);
+        }
+
+        public short GetVelocidad()
+        {
+            return velocidad;
         }
     }
 }

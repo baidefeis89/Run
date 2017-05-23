@@ -83,6 +83,7 @@ namespace Run
             
         }
 
+
         /*public override void MoverA(short x, short y)
         {
             base.MoverA(x, y);
