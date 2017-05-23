@@ -34,13 +34,23 @@ namespace Run
             }
         }
 
+        public bool GetSuelo()
+        {
+            foreach(Bloque bloque in bloques)
+            {
+                if(bloque.GetX()<=100 && bloque.GetX() + 128 >= 100)
+                {
+                    return bloque.GetSuelo();
+                }
+            }
+            return true;
+        }
+
         public void MoverMapa()
         { 
             MoverBloques();
-            //MoverRecompensas();
             ControlVelocidad();
-            
-            //ControlRecompensas();//TODO
+
         }
 
         /**

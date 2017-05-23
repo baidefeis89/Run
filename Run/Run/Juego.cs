@@ -10,9 +10,9 @@ namespace Run
     class Juego
     {
         private Hardware h = new Hardware(800, 600, 24, false);
+        private Mapa mapa = new Mapa();
         private Personaje zombie = new Personaje();
         private Fondo fondo = new Fondo();
-        private Mapa mapa = new Mapa();
         private Bonus[] recompensas = new Bonus[6];
         private int puntuacion = 0;
 
@@ -29,6 +29,7 @@ namespace Run
         public void Iniciar()
         {
             bool terminado = false;
+            zombie.SetMapa(mapa);
 
             do
             {
@@ -37,6 +38,7 @@ namespace Run
                 if (h.TeclaPulsada(Hardware.TECLA_ESC)) terminado = true;
 
                 zombie.Animar();
+                terminado = zombie.Morir();
                 mapa.MoverMapa();
                 foreach(Bonus recompensa in recompensas)
                 {
@@ -45,7 +47,7 @@ namespace Run
                     //Comprobamos la colision
                     puntuacion += recompensa.Desaparecer(zombie);
                 }
-                
+                                
 
                 
 
@@ -62,6 +64,15 @@ namespace Run
                 Thread.Sleep(20);
 
             } while (!terminado);
+        }
+
+        //TODO
+        public void Caer()
+        {
+            if (!mapa.GetSuelo())
+            {
+
+            }
         }
 
 

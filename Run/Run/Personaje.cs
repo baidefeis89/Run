@@ -9,6 +9,7 @@ namespace Run
 {
     class Personaje:Sprite
     {
+        private Mapa mapa;
         private IntPtr[] correr = new IntPtr[10];
         private int contador = 0;
         bool saltar,subiendo,bajando;
@@ -34,6 +35,8 @@ namespace Run
             contador++;
         }
 
+        
+
         public void Animar()
         {
             imagen = correr[contador];
@@ -46,6 +49,7 @@ namespace Run
                 contador++;
             }
 
+
             if (saltar)
             {
                 if (y == 400 || subiendo)
@@ -57,7 +61,7 @@ namespace Run
                         bajando = true;
                     }
                 }
-                if(y<340 || (y<400 && bajando))
+                if(y<340 || (y<400 && bajando) )
                 {
                     subiendo = false;
                     y += 6;
@@ -73,6 +77,16 @@ namespace Run
 
         }
 
+        public bool Morir()
+        {
+            if (!saltar && !mapa.GetSuelo())
+            {
+                y += 30;
+                return true;
+            }
+            else return false;
+        }
+
         public void Saltar()
         {
             if (!bajando && !subiendo)
@@ -83,6 +97,10 @@ namespace Run
             
         }
 
+        public void SetMapa(Mapa mapa)
+        {
+            this.mapa = mapa;
+        }
 
         /*public override void MoverA(short x, short y)
         {
