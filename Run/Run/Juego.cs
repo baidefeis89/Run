@@ -30,37 +30,42 @@ namespace Run
         {
             bool terminado = false;
             zombie.SetMapa(mapa);
+            string textoPuntuacion = "Puntuacion: " + puntuacion;
+            string textoDistancia = "Distancia: " + mapa.GetDistancia()+"m";
 
             do
             {
-
-                if (h.TeclaPulsada(Hardware.TECLA_ESP)) zombie.Saltar();
-                if (h.TeclaPulsada(Hardware.TECLA_ESC)) terminado = true;
 
                 zombie.Animar();
                 terminado = zombie.Morir();
                 mapa.MoverMapa();
                 foreach(Bonus recompensa in recompensas)
                 {
-                    Console.WriteLine(recompensa.GetX());
                     recompensa.Desplazar(Convert.ToInt16(recompensa.GetX()-mapa.GetVelocidad()));
                     //Comprobamos la colision
                     puntuacion += recompensa.Desaparecer(zombie);
                 }
-                                
 
-                
-
+                textoPuntuacion = "Puntuación: " + puntuacion;
+                textoDistancia = "Distancia: " + mapa.GetDistancia() + "m";
 
                 h.BorrarPantalla();
                 Hardware.DibujarImagen(fondo);
                 mapa.DibujarMapa();
                 Hardware.DibujarImagen(zombie);
+                h.EscribirTexto(textoPuntuacion, 650, 550);
+                h.EscribirTexto(textoDistancia,650,570);
+
                 foreach(Bonus recompensa in recompensas)
                 {
                     Hardware.DibujarImagen(recompensa);
                 }
                 h.VisualizarPantalla();
+
+                if (h.TeclaPulsada(Hardware.TECLA_ESP)) zombie.Saltar();
+                if (h.TeclaPulsada(Hardware.TECLA_ESC)) terminado = true;
+
+
                 Thread.Sleep(20);
 
             } while (!terminado);

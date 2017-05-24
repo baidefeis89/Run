@@ -36,6 +36,8 @@ namespace Run
             Sdl.SDL_Rect rect = new Sdl.SDL_Rect(0, 0, ancho, alto);
 
             Sdl.SDL_SetClipRect(pantalla, ref rect);
+
+            SdlTtf.TTF_Init();//texto
         }
 
         ~Hardware()
@@ -48,6 +50,17 @@ namespace Run
             Sdl.SDL_Rect origen = new Sdl.SDL_Rect(0, 0, imagen.GetAncho(), imagen.GetAlto());
             Sdl.SDL_Rect dest = new Sdl.SDL_Rect(imagen.GetX(), imagen.GetY(), imagen.GetAncho(), imagen.GetAlto());
             Sdl.SDL_BlitSurface(imagen.GetPuntero(), ref origen, pantalla, ref dest);
+        }
+
+        public void EscribirTexto(string texto, short x, short y)
+        {
+            IntPtr tipoLetra = SdlTtf.TTF_OpenFont("SEGOEPRB.TTF", 14);
+            Sdl.SDL_Color color = new Sdl.SDL_Color(137,45,45);
+            IntPtr textoComoImagen = SdlTtf.TTF_RenderText_Solid(tipoLetra, texto, color);
+            if (textoComoImagen == IntPtr.Zero) Environment.Exit(5);
+            Sdl.SDL_Rect origen = new Sdl.SDL_Rect(0, 0, ancho, alto);
+            Sdl.SDL_Rect dest = new Sdl.SDL_Rect(x, y, ancho, alto);
+            Sdl.SDL_BlitSurface(textoComoImagen, ref origen, pantalla, ref dest);
         }
 
         public void VisualizarPantalla()

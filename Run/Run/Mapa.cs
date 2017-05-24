@@ -19,6 +19,7 @@ namespace Run
         //frecuenciaAgujeros menor número == mayor frecuencia
         private short frecuenciaAgujeros = 16;
         private short contadorVelocidad = 0;
+        private int distancia = 0;
 
 
 
@@ -159,7 +160,7 @@ namespace Run
                     ControlAgujeros();
                     FormatBloques();
 
-
+                    distancia += 1;
                 }
             }
 
@@ -191,6 +192,11 @@ namespace Run
         public short GetVelocidad()
         {
             return velocidad;
+        }
+
+        public int GetDistancia()
+        {
+            return distancia;
         }
     }
 }
