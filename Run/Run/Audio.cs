@@ -14,11 +14,9 @@ namespace Run
 
         public Audio()
         {
-
-            SdlMixer.Mix_OpenAudio(44100, (short)SdlMixer.MIX_DEFAULT_FORMAT, 2, 4096);
+            SdlMixer.Mix_OpenAudio(8000, (short)SdlMixer.MIX_DEFAULT_FORMAT, 2, 4096);
             audios = new List<IntPtr>();
             audios.Add(SdlMixer.Mix_LoadMUS("musica.wav"));
-            audios.Add(SdlMixer.Mix_LoadMUS("sound.wav"));
         }
 
         public void PlayMusica()
