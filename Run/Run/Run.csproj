@@ -75,6 +75,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audio.cs" />
     <Compile Include="Bloque.cs" />
     <Compile Include="Bonus.cs" />
     <Compile Include="Fondo.cs" />
@@ -98,6 +99,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="musica.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="img\BG.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

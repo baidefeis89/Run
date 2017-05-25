@@ -17,6 +17,7 @@ namespace Run
         private Bonus[] recompensas = new Bonus[6];
         private int puntuacion = 0;
         private Marcador marca = new Marcador();
+        private Audio musica = new Audio();
 
         public Juego()
         {
@@ -55,14 +56,13 @@ namespace Run
 
         public void Jugar()
         {
+            musica.PlayMusica();
             bool terminado = false;
             zombie.SetMapa(mapa);
             string textoPuntuacion = "Puntuacion: " + puntuacion;
             string textoDistancia = "Distancia: " + mapa.GetDistancia() + "m";
-
             do
             {
-
                 zombie.Animar();
                 terminado = zombie.Morir();
                 mapa.MoverMapa();
@@ -98,6 +98,7 @@ namespace Run
 
             } while (!terminado);
 
+            musica.StopMusica();
             
         }
 
