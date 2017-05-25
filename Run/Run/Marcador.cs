@@ -72,13 +72,13 @@ namespace Run
 
             int i = 1;
             short y = 40;
-            h.EscribirTexto("Mejores marcas por Puntuacion", 550, y);
+            h.EscribirTexto("Mejores marcas por Puntuacion", 500, y);
             foreach (var record in ordenadas)
             {
                 if (y < 560)
                 {
                     y += 20;
-                    h.EscribirTexto(i + ".- " + record.nombre + " -> " + record.puntuacion + "pts. ("+record.distancia+"m.)", 550, y);
+                    h.EscribirTexto(i + ".- " + record.nombre + " -> " + record.puntuacion + "pts. ("+record.distancia+"m.)", 500, y);
                     i++;
                 }
                 else

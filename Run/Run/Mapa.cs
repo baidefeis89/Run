@@ -39,7 +39,7 @@ namespace Run
         {
             foreach(Bloque bloque in bloques)
             {
-                if(bloque.GetX()<=100 && bloque.GetX() + 128 >= 100)
+                if(bloque.GetX()<=130 && bloque.GetX() + 128 >= 140)
                 {
                     return bloque.GetSuelo();
                 }
@@ -176,6 +176,8 @@ namespace Run
             {
                 velocidad++;
                 contadorVelocidad = 0;
+                //Aumentamos la frecuencia de los agujeros cada 2 aumentos de velocidad
+                if (frecuenciaAgujeros > 1 && velocidad % 2 == 0) frecuenciaAgujeros--;
             }
             else contadorVelocidad++;
         }

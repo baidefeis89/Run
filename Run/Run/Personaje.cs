@@ -17,11 +17,11 @@ namespace Run
 
         public Personaje()
         {
-            ancho = 60;
-            alto = 73;
+            ancho = 43;
+            alto = 67;
 
             x = 100;
-            y = 400;
+            y = 406;
 
             saltar = false;
             subiendo = false;
@@ -52,20 +52,20 @@ namespace Run
 
             if (saltar)
             {
-                if (y == 400 || subiendo)
+                if (y == 406 || subiendo)
                 {
-                    y -= 12;
-                    if (y < 340)
+                    y -= 20;
+                    if (y < 300)
                     {
                         subiendo = false;
                         bajando = true;
                     }
                 }
-                if(y<340 || (y<400 && bajando) )
+                if(y<300 || (y<406 && bajando) )
                 {
                     subiendo = false;
-                    y += 6;
-                    if (y == 400)
+                    y += 12;
+                    if (y == 406)
                     {
                         saltar = false;
                         bajando = false;
@@ -81,7 +81,7 @@ namespace Run
         {
             if (!saltar && !mapa.GetSuelo())
             {
-                y += 30;
+                y += 50;
                 return true;
             }
             else return false;

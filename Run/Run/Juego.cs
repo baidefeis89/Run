@@ -34,14 +34,13 @@ namespace Run
             bool jugar = true;
             do
             {
+                Thread.Sleep(200);
                 if (menu.Principal())
                 {
                     Jugar();
                     marca.AddPuntuacion(menu.PedirNombre(), puntuacion, mapa.GetDistancia());
                     menu.MostrarMarcas(marca);
-                    mapa = new Mapa();
-                    puntuacion = 0;
-
+                    ResetearParametros();
                 }
                 else
                 {
@@ -95,10 +94,23 @@ namespace Run
 
 
                 Thread.Sleep(20);
+                if (terminado) Thread.Sleep(100);
 
             } while (!terminado);
 
             
+        }
+
+        public void ResetearParametros()
+        {
+            mapa = new Mapa();
+            zombie = new Personaje();
+            puntuacion = 0;
+            for (int i = 0; i < 6; i++)
+            {
+                recompensas[i] = new Bonus();
+                recompensas[i].setImagen(i);
+            }
         }
 
 

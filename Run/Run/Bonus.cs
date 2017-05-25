@@ -13,6 +13,7 @@ namespace Run
         private bool bajar = true;
         private int puntos;
         private Random random = new Random();
+        private static short pos = 800;
 
         public Bonus()
         {
@@ -25,10 +26,11 @@ namespace Run
             imgPremio[5] = SdlImage.IMG_Load("img/Jelly6.png");
             imgPremio[6] = SdlImage.IMG_Load("img/Bloque4.png");
             imagen = imgPremio[1];
-            ancho = 50;
-            alto = 50;
-            x = Convert.ToInt16(random.Next(800,4600));
-            y = 330;
+            ancho = 35;
+            alto = 35;
+            x = pos;
+            y = Convert.ToInt16(random.Next(280, 380));
+            pos += Convert.ToInt16(random.Next(800,2000));
         }
 
         public override void Desplazar(short x)
@@ -36,7 +38,7 @@ namespace Run
             this.x = x;
             if (bajar)
             {
-                y += 2;
+                y += 6;
                 if (y > 380)
                 {
                     bajar = false;
@@ -44,8 +46,8 @@ namespace Run
             }
             else
             {
-                y -= 2;
-                if (y < 320)
+                y -= 6;
+                if (y < 280)
                 {
                     bajar = true;
                 }
@@ -77,8 +79,8 @@ namespace Run
                 x = Convert.ToInt16(random.Next(850, 20600));
                 imagen = imgPremio[puntos / 10 - 1];
             }
-
-            if (x + ancho >= objeto.GetX() && x <= objeto.GetX() + objeto.GetAncho() && y + alto >= objeto.GetY() && y <= objeto.GetY() + objeto.GetAlto())
+            //Quitamos 10px en los laterales de los objetos bonus para compensar la parte de la imagen transparente dado que estos son redondos pero las imagenes son cuadradas
+            if (x + ancho-10 >= objeto.GetX() && x+10 <= objeto.GetX() + objeto.GetAncho() && y + alto >= objeto.GetY() && y <= objeto.GetY() + objeto.GetAlto())
             {
                 imagen = imgPremio[6];
                 return puntos;
