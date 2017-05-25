@@ -1,9 +1,10 @@
 ﻿using System;
 using Tao.Sdl;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+/**
+ * Clase principal de los sprite de la que heredan
+ * todo lo que se muestra por pantalla
+ * */
 
 namespace Run
 {

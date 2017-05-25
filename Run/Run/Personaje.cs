@@ -1,26 +1,23 @@
 ﻿using System;
 using Tao.Sdl;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Run
 {
     class Personaje:Sprite
     {
+        private Mapa mapa;
         private IntPtr[] correr = new IntPtr[10];
         private int contador = 0;
         bool saltar,subiendo,bajando;
 
-
         public Personaje()
         {
-            ancho = 60;
-            alto = 73;
+            ancho = 43;
+            alto = 67;
 
             x = 100;
-            y = 400;
+            y = 406;
 
             saltar = false;
             subiendo = false;
@@ -34,6 +31,9 @@ namespace Run
             contador++;
         }
 
+        /**
+         * Animación y control del salto del personaje
+         * */
         public void Animar()
         {
             imagen = correr[contador];
@@ -46,22 +46,23 @@ namespace Run
                 contador++;
             }
 
+
             if (saltar)
             {
-                if (y == 400 || subiendo)
+                if (y == 406 || subiendo)
                 {
-                    y -= 12;
-                    if (y < 340)
+                    y -= 20;
+                    if (y < 300)
                     {
                         subiendo = false;
                         bajando = true;
                     }
                 }
-                if(y<340 || (y<400 && bajando))
+                if(y<300 || (y<406 && bajando) )
                 {
                     subiendo = false;
-                    y += 6;
-                    if (y == 400)
+                    y += 12;
+                    if (y == 406)
                     {
                         saltar = false;
                         bajando = false;
@@ -73,6 +74,22 @@ namespace Run
 
         }
 
+        /**
+         * Comprueba si el personaje cae en un agujero
+         * */
+        public bool Morir()
+        {
+            if (!saltar && !mapa.GetSuelo())
+            {
+                y += 50;
+                return true;
+            }
+            else return false;
+        }
+
+        /**
+         * Modifica los booleanos en caso de salto
+         * */
         public void Saltar()
         {
             if (!bajando && !subiendo)
@@ -83,10 +100,9 @@ namespace Run
             
         }
 
-        /*public override void MoverA(short x, short y)
+        public void SetMapa(Mapa mapa)
         {
-            base.MoverA(x, y);
-            Animar();
-        }*/
+            this.mapa = mapa;
+        }
     }
 }

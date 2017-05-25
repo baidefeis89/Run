@@ -1,9 +1,9 @@
-﻿using System;
+﻿/**
+ * Clase de los pequeños bloques de tierra que componen la pantalla por la que 
+ * corre el personaje
+ * */
+using System;
 using Tao.Sdl;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Run
 {
@@ -26,6 +26,10 @@ namespace Run
             y = 470;
         }
 
+        /**
+         * Recibe un enum y modifica la apariencia del suelo
+         * también modifica el valor suelo para poder detectar los agujeros
+         * */
         public void SetBloque(parteBloque parte)
         {
             switch (parte)
@@ -60,12 +64,18 @@ namespace Run
             return estado;
         }
 
-
+        /**
+         * Devuelve true si hay suelo
+         * false si es un agujero
+         * */
         public bool GetSuelo()
         {
             return suelo;
         }
 
+        /**
+         * Desplaza lateralmente el bloque
+         * */
         public override void Desplazar(short x)
         {
             this.x = x;

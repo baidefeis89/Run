@@ -1,25 +1,29 @@
 ﻿using System;
-using Tao.Sdl;
-using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+/**
+ * Gestión de los bloques que componen el mapa, velocidad
+ * de movimiento y frecuencia de agujeros
+ * */
 
 namespace Run
 {
     class Mapa:Sprite
     {
         Bloque[] bloques = new Bloque[20];
-        Bonus bonus = new Bonus();
         private int contador = 0;
         private short ultimoBloque=18;
         private Random random = new Random();
-        private bool agujero = false;
-        private short velocidad = 8;
+        private short velocidad = 18;
+        //frecuenciaAgujeros menor número == mayor frecuencia
+        private short frecuenciaAgujeros = 16;
         private short contadorVelocidad = 0;
+        private int distancia = 0;
 
 
-
+        /**
+         * Crea todos los bloques y les asigna su posicion
+         * inicial y la imagen por defecto
+         * */
         public Mapa()
         {
             short x = 0;
@@ -32,15 +36,32 @@ namespace Run
             }
         }
 
+        /**
+         * Devuelve true si el bloque que está debajo del 
+         * personaje es suelo y false si es un agujero
+         * */
+        public bool GetSuelo()
+        {
+            foreach(Bloque bloque in bloques)
+            {
+                if(bloque.GetX()<=130 && bloque.GetX() + 128 >= 140)
+                {
+                    return bloque.GetSuelo();
+                }
+            }
+            return true;
+        }
+
         public void MoverMapa()
         { 
             MoverBloques();
-            MoverRecompensas();
             ControlVelocidad();
-            
-            //ControlRecompensas();//TODO
         }
 
+        /**
+         * Da el formato correspondiente a cada uno de los bloques
+         * en funcion de la posición de los agujeros
+         * */
         public void FormatBloques()
         {
             
@@ -79,13 +100,17 @@ namespace Run
             }
         }
 
+        /**
+         * Crea agujeros aleatoriamente evitando que se creen
+         * dos consecutivos o con menos de 2 bloques de tierra entre medias
+         * */
         public void ControlAgujeros()
         {
             short numRand;
 
-            numRand = Convert.ToInt16(random.Next(3));
+            numRand = Convert.ToInt16(random.Next(frecuenciaAgujeros));
 
-            if (numRand == 2 && bloques[ultimoBloque].GetEstado() == Bloque.parteBloque.MITAD)
+            if (numRand == 0 && bloques[ultimoBloque].GetEstado() == Bloque.parteBloque.MITAD)
             {
                 if ( ultimoBloque > 0 && ultimoBloque < 19 && bloques[ultimoBloque -1].GetEstado() != Bloque.parteBloque.INICIO)
                 {
@@ -135,26 +160,14 @@ namespace Run
 
                     ultimoBloque = i;
                     
+                    //Cada vez que se mueve un bloque al final
                     ControlAgujeros();
                     FormatBloques();
 
-
+                    distancia += 1;
                 }
             }
 
-        }
-
-        /**
-         * Movimiento de las recompensas
-         * 
-         */
-        public void MoverRecompensas()
-        {
-            //TODO adaptarlo para un Array de recompensas
-            short pos;
-            pos = bonus.GetX();
-            pos -= Convert.ToInt16(velocidad - (velocidad / 2));
-            bonus.Desplazar(pos);
         }
 
         /**
@@ -167,6 +180,8 @@ namespace Run
             {
                 velocidad++;
                 contadorVelocidad = 0;
+                //Aumentamos la frecuencia de los agujeros cada 2 aumentos de velocidad
+                if (frecuenciaAgujeros > 1 && velocidad % 2 == 0) frecuenciaAgujeros--;
             }
             else contadorVelocidad++;
         }
@@ -177,7 +192,16 @@ namespace Run
             {
                 Hardware.DibujarImagen(x);
             }
-            Hardware.DibujarImagen(bonus);
+        }
+
+        public short GetVelocidad()
+        {
+            return velocidad;
+        }
+
+        public int GetDistancia()
+        {
+            return distancia;
         }
     }
 }
