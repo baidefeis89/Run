@@ -153,11 +153,19 @@ namespace Run
 
         public void MostrarMarcas(Marcador marcador)
         {
+            Thread.Sleep(200);
+            bool salir = false;
             h.BorrarPantalla();
             h.EscribirTexto("Marcadores", 350, 0);
             marcador.OrdenarPorDistancia();
             marcador.OrdenarPorPuntuacion();
-            Thread.Sleep(4000);
+            h.EscribirTexto("Pulse Enter", 350, 580);
+            h.VisualizarPantalla();
+            do
+            {
+                if (h.TeclaPulsada(Hardware.TECLA_ENT)) salir = true;
+            } while (!salir);
+            
         }
 
     }

@@ -12,7 +12,8 @@ namespace Run
     [Serializable]
     class Marcador
     {
-        List<Puntuacion> puntuaciones;
+        List<Puntuacion> puntuacionesPuntos;
+        List<Puntuacion> puntuacionesDistancia;
         Hardware h = new Hardware(800, 600, 24, false);
 
         [Serializable]
@@ -25,7 +26,8 @@ namespace Run
 
         public Marcador()
         {
-            puntuaciones = new List<Puntuacion>();
+            puntuacionesPuntos = new List<Puntuacion>();
+            puntuacionesDistancia = new List<Puntuacion>();
         }
 
         public void AddPuntuacion(string nombre,int puntuacion, int distancia)
@@ -34,43 +36,56 @@ namespace Run
             marca.nombre = nombre;
             marca.puntuacion = puntuacion;
             marca.distancia = distancia;
-            puntuaciones.Add(marca);
+            puntuacionesPuntos.Add(marca);
+            puntuacionesDistancia.Add(marca);
         }
 
         public void OrdenarPorDistancia()
         {
-            var ordenadas = from puntuacion in puntuaciones
+            var ordenadas = from puntuacion in puntuacionesDistancia
                            orderby puntuacion.distancia descending
                            select puntuacion;
 
             int i = 1;
-            byte y = 40;
+            short y = 40;
             h.EscribirTexto("Mejores marcas por Distancia",50,y);
             foreach(var record in ordenadas)
             {
-                y += 20;
-                h.EscribirTexto(i + ".- " + record.nombre + " -> " + record.distancia + "m.", 50, y);
-                i++;
+                if (y < 560)
+                {
+                    y += 20;
+                    h.EscribirTexto(i + ".- " + record.nombre + " -> " + record.distancia + "m. (" + record.puntuacion + "pts.)", 50, y);
+                    i++;
+                }
+                else
+                {
+                    puntuacionesDistancia.Remove(record);
+                }
             }
-            h.VisualizarPantalla();
         }
 
         public void OrdenarPorPuntuacion()
         {
-            var ordenadas = from puntuacion in puntuaciones
+            var ordenadas = from puntuacion in puntuacionesPuntos
                             orderby puntuacion.puntuacion descending
                             select puntuacion;
 
             int i = 1;
-            byte y = 40;
-            h.EscribirTexto("Mejores marcas por Puntuacion", 400, y);
+            short y = 40;
+            h.EscribirTexto("Mejores marcas por Puntuacion", 550, y);
             foreach (var record in ordenadas)
             {
-                y += 20;
-                h.EscribirTexto(i + ".- " + record.nombre + " -> " + record.puntuacion + "pts.", 400, y);
-                i++;
+                if (y < 560)
+                {
+                    y += 20;
+                    h.EscribirTexto(i + ".- " + record.nombre + " -> " + record.puntuacion + "pts. ("+record.distancia+"m.)", 550, y);
+                    i++;
+                }
+                else
+                {
+                    puntuacionesPuntos.Remove(record);
+                }
             }
-            h.VisualizarPantalla();
         }
 
         public static void GuardarPuntuaciones(Marcador x)
@@ -102,7 +117,6 @@ namespace Run
                 return x;
             }
             return new Marcador();
-            
         }
     }
 }
