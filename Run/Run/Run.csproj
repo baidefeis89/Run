@@ -81,9 +81,11 @@
     <Compile Include="Hardware.cs" />
     <Compile Include="Juego.cs" />
     <Compile Include="Mapa.cs" />
+    <Compile Include="Menu.cs" />
     <Compile Include="Personaje.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Marcador.cs" />
     <Compile Include="Sprite.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -160,9 +162,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="img\Walk-9.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="img\zombie.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="libfreetype-6.dll">

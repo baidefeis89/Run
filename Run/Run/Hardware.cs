@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Run
 {
+    [Serializable]
     class Hardware
     {
         //set pantalla static
@@ -19,6 +20,7 @@ namespace Run
         public static int TECLA_ABA = Sdl.SDLK_DOWN;
         public static int TECLA_DER = Sdl.SDLK_RIGHT;
         public static int TECLA_ESP = Sdl.SDLK_SPACE;
+        public static int TECLA_ENT = Sdl.SDLK_RETURN;
 
         public Hardware(short ancho, short alto, short bits, bool pantallaCompleta)
         {
@@ -56,6 +58,17 @@ namespace Run
         {
             IntPtr tipoLetra = SdlTtf.TTF_OpenFont("SEGOEPRB.TTF", 14);
             Sdl.SDL_Color color = new Sdl.SDL_Color(137,45,45);
+            IntPtr textoComoImagen = SdlTtf.TTF_RenderText_Solid(tipoLetra, texto, color);
+            if (textoComoImagen == IntPtr.Zero) Environment.Exit(5);
+            Sdl.SDL_Rect origen = new Sdl.SDL_Rect(0, 0, ancho, alto);
+            Sdl.SDL_Rect dest = new Sdl.SDL_Rect(x, y, ancho, alto);
+            Sdl.SDL_BlitSurface(textoComoImagen, ref origen, pantalla, ref dest);
+        }
+
+        public void EscribirTexto(string texto, short x, short y,short size,byte r,byte g,byte b)
+        {
+            IntPtr tipoLetra = SdlTtf.TTF_OpenFont("SEGOEPRB.TTF", size);
+            Sdl.SDL_Color color = new Sdl.SDL_Color(r, g, b);
             IntPtr textoComoImagen = SdlTtf.TTF_RenderText_Solid(tipoLetra, texto, color);
             if (textoComoImagen == IntPtr.Zero) Environment.Exit(5);
             Sdl.SDL_Rect origen = new Sdl.SDL_Rect(0, 0, ancho, alto);
