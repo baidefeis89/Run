@@ -4,8 +4,6 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Run
 {
@@ -30,6 +28,9 @@ namespace Run
             puntuacionesDistancia = new List<Puntuacion>();
         }
 
+        /**
+         * Añade las puntuaciones a las dos listas de puntuaciones
+         * */
         public void AddPuntuacion(string nombre,int puntuacion, int distancia)
         {
             Puntuacion marca = new Puntuacion();
@@ -40,6 +41,10 @@ namespace Run
             puntuacionesDistancia.Add(marca);
         }
 
+        /**
+         * Ordena y muestra las puntuaciones por mayor distancia
+         * elimina las ultimas puntuaciones
+         * */
         public void OrdenarPorDistancia()
         {
             var ordenadas = from puntuacion in puntuacionesDistancia
@@ -64,6 +69,10 @@ namespace Run
             }
         }
 
+        /**
+         * Ordena y muestra las puntuaciones por mayor puntuacion
+         * elimina las ultimas puntuaciones
+         * */
         public void OrdenarPorPuntuacion()
         {
             var ordenadas = from puntuacion in puntuacionesPuntos
@@ -88,6 +97,9 @@ namespace Run
             }
         }
 
+        /**
+         * Guarda es estado de la clase marcador en un archivo binario
+         * */
         public static void GuardarPuntuaciones(Marcador x)
         {
             
@@ -97,6 +109,9 @@ namespace Run
             stream.Close();
         }
 
+        /**
+         * Devuelve el estado guardado de la clase marcador
+         * */
         public static Marcador CargarPuntuaciones()
         {
             if (File.Exists("scores"))

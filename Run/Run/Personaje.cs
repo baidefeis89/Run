@@ -1,9 +1,6 @@
 ﻿using System;
 using Tao.Sdl;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Run
 {
@@ -13,7 +10,6 @@ namespace Run
         private IntPtr[] correr = new IntPtr[10];
         private int contador = 0;
         bool saltar,subiendo,bajando;
-
 
         public Personaje()
         {
@@ -35,8 +31,9 @@ namespace Run
             contador++;
         }
 
-        
-
+        /**
+         * Animación y control del salto del personaje
+         * */
         public void Animar()
         {
             imagen = correr[contador];
@@ -77,6 +74,9 @@ namespace Run
 
         }
 
+        /**
+         * Comprueba si el personaje cae en un agujero
+         * */
         public bool Morir()
         {
             if (!saltar && !mapa.GetSuelo())
@@ -87,6 +87,9 @@ namespace Run
             else return false;
         }
 
+        /**
+         * Modifica los booleanos en caso de salto
+         * */
         public void Saltar()
         {
             if (!bajando && !subiendo)
@@ -101,11 +104,5 @@ namespace Run
         {
             this.mapa = mapa;
         }
-
-        /*public override void MoverA(short x, short y)
-        {
-            base.MoverA(x, y);
-            Animar();
-        }*/
     }
 }

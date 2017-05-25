@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Tao.Sdl;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Run
 {
@@ -19,11 +16,17 @@ namespace Run
             audios.Add(SdlMixer.Mix_LoadMUS("musica.wav"));
         }
 
+        /**
+         * Reproduce la canción de fondo del juego
+         * */
         public void PlayMusica()
         {
             SdlMixer.Mix_PlayMusic(audios[0], -1);
         }
 
+        /**
+         * Pausa la música de fondo
+         * */
         public void StopMusica()
         {
             SdlMixer.Mix_PauseMusic();

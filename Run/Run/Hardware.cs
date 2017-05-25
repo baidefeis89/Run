@@ -1,20 +1,19 @@
 ﻿using System;
 using Tao.Sdl;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+/**
+ * Clase para la gestión de los sprites y de las
+ * pulsaciones de tecla
+ * */
 
 namespace Run
 {
     [Serializable]
     class Hardware
     {
-        //set pantalla static
-        short ancho;
-        short alto;
-        short bitsColor;
-        static IntPtr pantalla;
+        private short ancho;
+        private short alto;
+        private short bitsColor;
+        private static IntPtr pantalla;
         public static int TECLA_ESC = Sdl.SDLK_ESCAPE;
         public static int TECLA_ARR = Sdl.SDLK_UP;
         public static int TECLA_ABA = Sdl.SDLK_DOWN;

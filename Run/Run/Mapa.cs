@@ -1,20 +1,18 @@
 ﻿using System;
-using Tao.Sdl;
-using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+/**
+ * Gestión de los bloques que componen el mapa, velocidad
+ * de movimiento y frecuencia de agujeros
+ * */
 
 namespace Run
 {
     class Mapa:Sprite
     {
         Bloque[] bloques = new Bloque[20];
-        //Bonus bonus = new Bonus();
         private int contador = 0;
         private short ultimoBloque=18;
         private Random random = new Random();
-        private bool agujero = false;
         private short velocidad = 18;
         //frecuenciaAgujeros menor número == mayor frecuencia
         private short frecuenciaAgujeros = 16;
@@ -22,7 +20,10 @@ namespace Run
         private int distancia = 0;
 
 
-
+        /**
+         * Crea todos los bloques y les asigna su posicion
+         * inicial y la imagen por defecto
+         * */
         public Mapa()
         {
             short x = 0;
@@ -35,6 +36,10 @@ namespace Run
             }
         }
 
+        /**
+         * Devuelve true si el bloque que está debajo del 
+         * personaje es suelo y false si es un agujero
+         * */
         public bool GetSuelo()
         {
             foreach(Bloque bloque in bloques)
@@ -51,7 +56,6 @@ namespace Run
         { 
             MoverBloques();
             ControlVelocidad();
-
         }
 
         /**
@@ -188,7 +192,6 @@ namespace Run
             {
                 Hardware.DibujarImagen(x);
             }
-            //Hardware.DibujarImagen(bonus);
         }
 
         public short GetVelocidad()

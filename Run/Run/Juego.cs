@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+/**
+ * Clase principal del juego, desde aquí se gestiona la partida
+ * y eventos que sucedan
+ * */
 
 namespace Run
 {
@@ -30,6 +30,10 @@ namespace Run
             marca = Marcador.CargarPuntuaciones();
         }
 
+        /**
+         * Muestra el menú principal, llama al método Jugar, almacena
+         * la puntuación conseguida y reinicia los parámetros del juego entre partidas
+         * */
         public void Iniciar()
         {
             bool jugar = true;
@@ -50,10 +54,14 @@ namespace Run
                 }
             } while (jugar);
 
+            // Cuando se sale del juego almacena las mejores puntuaciones en un archivo
             Marcador.GuardarPuntuaciones(marca);            
 
         }
 
+        /**
+         * Gestión de la lógica del juego y llamada a los distintos métodos
+         * */
         public void Jugar()
         {
             musica.PlayMusica();
@@ -99,9 +107,11 @@ namespace Run
             } while (!terminado);
 
             musica.StopMusica();
-            
         }
 
+        /**
+         * Vuelve a crear los objetos para que se pongan sus parametros a cero
+         * */
         public void ResetearParametros()
         {
             mapa = new Mapa();

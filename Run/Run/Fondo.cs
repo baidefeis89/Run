@@ -1,9 +1,4 @@
-﻿using System;
-using Tao.Sdl;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Tao.Sdl;
 
 namespace Run
 {

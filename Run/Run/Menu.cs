@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Tao.Sdl;
-
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
+
+/**
+ * Clase con los distintos menús del juego
+ * */
 
 namespace Run
 {
@@ -68,9 +68,8 @@ namespace Run
 
         public bool MenuPausa()
         {
-            //Hardware.DibujarImagen(fondo);
             Thread.Sleep(100);
-            //mapa.DibujarMapa();
+
             h.EscribirTexto("PAUSA",320,90,50,0,0,0);
             h.EscribirTexto("Pulsa Escape para salir del juego", 100, 150, 40, 0, 0, 0);
             h.EscribirTexto("Pulsa Enter para continuar", 130, 190, 40, 0, 0, 0);
@@ -88,6 +87,10 @@ namespace Run
 
         }
 
+        /**
+         * Mostramos un menú para que el usuario introduzca su nombre
+         * devuelve un string con el nombre
+         * */
         public string PedirNombre()
         {
             char[] letras = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'Ñ', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', '.', ' ' };
@@ -151,6 +154,10 @@ namespace Run
             return name;
         }
 
+        /**
+         * Muestra en dos columnas los mejores resultados de
+         * los jugadores (por distancia y por puntos)
+         * */
         public void MostrarMarcas(Marcador marcador)
         {
             Thread.Sleep(200);
