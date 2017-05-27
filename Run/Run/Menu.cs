@@ -11,10 +11,9 @@ namespace Run
 {
     class Menu:Sprite
     {
-        Hardware h = new Hardware(800, 600, 24, false);
-        Fondo fondo = new Fondo();
-        Mapa mapa = new Mapa();
-        Personaje pj = new Personaje();
+        private Hardware h = new Hardware(800, 600, 24, false);
+        private Fondo fondo = new Fondo();
+        private Mapa mapa = new Mapa();
 
         public Menu()
         {
