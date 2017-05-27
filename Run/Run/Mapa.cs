@@ -7,9 +7,9 @@
 
 namespace Run
 {
-    class Mapa:Sprite
+    class Mapa
     {
-        Bloque[] bloques = new Bloque[20];
+        private Bloque[] bloques = new Bloque[20];
         private int contador = 0;
         private short ultimoBloque=18;
         private Random random = new Random();
@@ -62,7 +62,7 @@ namespace Run
          * Da el formato correspondiente a cada uno de los bloques
          * en funcion de la posición de los agujeros
          * */
-        public void FormatBloques()
+        private void FormatBloques()
         {
             
             if (!bloques[ultimoBloque].GetSuelo())
@@ -104,7 +104,7 @@ namespace Run
          * Crea agujeros aleatoriamente evitando que se creen
          * dos consecutivos o con menos de 2 bloques de tierra entre medias
          * */
-        public void ControlAgujeros()
+        private void ControlAgujeros()
         {
             short numRand;
 
@@ -133,7 +133,7 @@ namespace Run
          * cuando desaparecen de la pantalla
          * 
          */
-        public void MoverBloques()
+        private void MoverBloques()
         {
             short pos=0;
 
@@ -174,7 +174,7 @@ namespace Run
          * Aumento progresivo de la velocidad 
          * 
          */
-        public void ControlVelocidad()
+        private void ControlVelocidad()
         {
             if (contadorVelocidad == 200)
             {

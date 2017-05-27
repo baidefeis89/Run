@@ -62,7 +62,7 @@ namespace Run
         /**
          * Gestión de la lógica del juego y llamada a los distintos métodos
          * */
-        public void Jugar()
+        private void Jugar()
         {
             musica.PlayMusica();
             bool terminado = false;
@@ -112,7 +112,7 @@ namespace Run
         /**
          * Vuelve a crear los objetos para que se pongan sus parametros a cero
          * */
-        public void ResetearParametros()
+        private void ResetearParametros()
         {
             mapa = new Mapa();
             zombie = new Personaje();

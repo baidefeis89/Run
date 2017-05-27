@@ -10,9 +10,9 @@ namespace Run
     [Serializable]
     class Marcador
     {
-        List<Puntuacion> puntuacionesPuntos;
-        List<Puntuacion> puntuacionesDistancia;
-        Hardware h = new Hardware(800, 600, 24, false);
+        private List<Puntuacion> puntuacionesPuntos;
+        private List<Puntuacion> puntuacionesDistancia;
+        private Hardware h = new Hardware(800, 600, 24, false);
 
         [Serializable]
         public struct Puntuacion

@@ -6,7 +6,7 @@ namespace Run
 {
     class Audio
     {
-        List<IntPtr> audios;
+        private List<IntPtr> audios;
 
 
         public Audio()

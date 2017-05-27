@@ -9,7 +9,7 @@ namespace Run
         private Mapa mapa;
         private IntPtr[] correr = new IntPtr[10];
         private int contador = 0;
-        bool saltar,subiendo,bajando;
+        private bool saltar,subiendo,bajando;
 
         public Personaje()
         {
